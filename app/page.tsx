@@ -1,4 +1,5 @@
 'use client'
+import { Analytics } from '@vercel/analytics/react';
 import React, { useState } from 'react'
 export default function Home() {
   const [request, setRequest] = useState<{content?: string, subject?: string,parsing?: string}>({})
@@ -17,8 +18,8 @@ export default function Home() {
     }, 7000)
 
     setTimeout(() => {
-      setMessage('如果长时间未响应，请稍后再试 ...')
-    }, 15000)
+      setMessage('长时间未响应，请稍后再试 ...')
+    }, 55000)
     try{
       const response = await fetch('/api/get-itinerary', {
         method: 'POST',
@@ -107,6 +108,7 @@ export default function Home() {
 
         </div>
       </div>
+      <Analytics></Analytics>
     </main>
   )
 }
