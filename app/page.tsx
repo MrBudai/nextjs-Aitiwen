@@ -17,7 +17,7 @@ export default function Home() {
     }, 7000)
 
     setTimeout(() => {
-      setMessage('AI老师正在组织语言 ...')
+      setMessage('如果长时间未响应，请稍后再试 ...')
     }, 15000)
     try{
       const response = await fetch('/api/get-itinerary', {
@@ -55,13 +55,13 @@ export default function Home() {
     }
   }
   // let content = itinerary.split('第')
-  console.log(itinerary)
+  // console.log(itinerary)
   // if (content.length > 1) {
   //   content.shift()
   // } else {
   //   content[0] = "1" + content[0]
   // }
-  console.log(request)
+  // console.log(request)
   return (
     <main>
       <div className="app-container">

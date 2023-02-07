@@ -25,7 +25,7 @@ export default async function handler(
     parsing = body.parsing ||parsing
   }
 
-  let basePrompt = `我想咨询关于${subject}学科的问题，问题内容是：${content},${parsing}详细解析。如果问题内容和${subject}学科无关，请拒绝回答。 `
+  let basePrompt = `我想咨询关于${subject}学科的问题，问题内容是：${content}，${parsing}详细解析。如果问题内容和${subject}学科无关，请拒绝回答。 `
   try {
     const response = await fetch('https://api.openai.com/v1/completions', {
       method: 'POST',
