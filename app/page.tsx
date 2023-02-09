@@ -2,13 +2,19 @@
 import { Analytics } from '@vercel/analytics/react';
 import React, { useState } from 'react'
 export default function Home() {
-  const [request, setRequest] = useState<{content?: string, subject?: string,parsing?: string}>({})
+  const [request, setRequest] = useState<{content?: string, subject?: string,parsing?: string, everything?:String}>({})
   let [itinerary, setItinerary] = useState<string>('')
 
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   async function hitAPI() {
-    if (!request.content) return
+    if (request.content && request.everything){
+      alert('不能同时问学科和任何问题')
+      return
+    }
+    if(!request.content && !request.everything){
+      return
+    }
     setMessage('AI老师正在读题...')
     setLoading(true)
     setItinerary('')
@@ -26,7 +32,8 @@ export default function Home() {
         body: JSON.stringify({
           content: request.content,
           subject: request.subject,
-          parsing : request.parsing
+          parsing : request.parsing,
+          everything:request.everything,
         })
       })
       const json = await response.json()
@@ -94,6 +101,9 @@ export default function Home() {
           {/* <input style={styles.input} placeholder="是否需要详细解析" onChange={e => setRequest(request => ({
             ...request, parsing: e.target.value
           }))} />           */}
+          <textarea style={styles.input2} placeholder="你也可以问我任何事情" onChange={e => setRequest(request => ({
+            ...request, everything: e.target.value
+          }))} />          
           <button className="input-button"  onClick={hitAPI}>开始你的提问</button>
         </div>
         <div className="results-container">
@@ -142,6 +152,15 @@ const styles = {
   content:{
     marigin:'0 auto',
     color:'white'
-  }
+  },
+  input2: {
+    padding: '10px 14px',
+    marginBottom: '4px',
+    outline: 'none',
+    fontSize: '16px',
+    // width: '100%',
+    borderRadius: '8px',
+    height:'120px',
+  },
 
 }
